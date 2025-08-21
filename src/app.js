@@ -5,9 +5,7 @@ const app = express();
 
 app.use(express.json());
 
-// --- handle invalid JSON body errors from express.json() ---
 app.use((err, req, res, next) => {
-  // express.json() will pass a SyntaxError with status 400 when JSON is malformed
   if (err instanceof SyntaxError && err.status === 400 && "body" in err) {
     return res.status(400).json({ error: "Invalid JSON" });
   }
